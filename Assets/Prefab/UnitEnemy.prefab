@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7125349756161298095, guid: 79ba04ce0ad6aed40a876dd655015ab3, type: 3}
+      propertyPath: ragDollPrefab
+      value: 
+      objectReference: {fileID: 5010752314754415325, guid: 6963651495b2027489fc784ccc97a846, type: 3}
     - target: {fileID: 3003984544685465340, guid: 79ba04ce0ad6aed40a876dd655015ab3, type: 3}
       propertyPath: m_Name
       value: UnitEnemy
@@ -60,8 +64,30 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: c70e075a2144ba04784d74b7b2889fd3, type: 2}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedComponents:
+    - {fileID: 8804179838437402707, guid: 79ba04ce0ad6aed40a876dd655015ab3, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 3472253988391016573, guid: 79ba04ce0ad6aed40a876dd655015ab3, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3003984544685465340, guid: 79ba04ce0ad6aed40a876dd655015ab3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5193676420303437114}
   m_SourcePrefab: {fileID: 100100000, guid: 79ba04ce0ad6aed40a876dd655015ab3, type: 3}
+--- !u!1 &4937552907093462469 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3003984544685465340, guid: 79ba04ce0ad6aed40a876dd655015ab3, type: 3}
+  m_PrefabInstance: {fileID: 7869471018698232633}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5193676420303437114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4937552907093462469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26021c3126885c24ea55b345cc9a5ca5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -62,16 +62,21 @@ public class UnitActionSystemUI : MonoBehaviour
         {
             Destroy(t.gameObject);
         }
+
         actionButtonUIList.Clear();
+
         Unit selectedUnit = UnitActionSystem.Instance.GetSelectUnit();
+        if (selectedUnit == null) return; 
+
         foreach (BaseAction baseAction in selectedUnit.GetBaseActionArray())
         {
-           Transform actionBtnTransform= Instantiate(actionButtonPrefab, actionButtonContainerTransform);
-           ActionButtonUI actionButtonUI=actionBtnTransform.GetComponent<ActionButtonUI>();
-           actionButtonUI.SetBaseAction(baseAction);
+            Transform actionBtnTransform = Instantiate(actionButtonPrefab, actionButtonContainerTransform);
+            ActionButtonUI actionButtonUI = actionBtnTransform.GetComponent<ActionButtonUI>();
+            actionButtonUI.SetBaseAction(baseAction);
             actionButtonUIList.Add(actionButtonUI);
         }
     }
+
 
     private void ClearUnitActionButtons()
     {
@@ -90,17 +95,31 @@ public class UnitActionSystemUI : MonoBehaviour
     private void OnDestroy()
     {
         UnitActionSystem.Instance.OnSelectedUnitChange -= UnitActionSystem_OnSelectedUnitChange;
+        UnitActionSystem.Instance.OnSelectedActionChange -= UnitActionSystem_OnSelectedActionChange;
+        UnitActionSystem.Instance.OnActionStarts -= UnitActionSystem_OnActionStarts;
+        TurnSystem.Instance.OnTurnChanged -= TurnSystem_OnturnChanged;
+        Unit.OnAnyActionPointsChanged -= Unit_OnAnyActionPointsChanged;
     }
+
     private void UpdateSelectedVisual()
     {
-        foreach(ActionButtonUI actionButonUI in actionButtonUIList)
+        foreach(ActionButtonUI actionButtonUI in actionButtonUIList)
         {
-            actionButonUI.UppdateSelectedVisual();
+            actionButtonUI.UppdateSelectedVisual();
+
         }
     }
     private void UpdateAP()
     {
-        Unit selectedUnit=UnitActionSystem.Instance.GetSelectUnit();
-        apText.text = "AP: " + selectedUnit.GetAPs();
+        Unit selectedUnit = UnitActionSystem.Instance.GetSelectUnit();
+        if (selectedUnit != null)
+        {
+            apText.text = "AP: " + selectedUnit.GetAPs();
+        }
+        else
+        {
+            apText.text = "AP: -";
+        }
     }
+
 }

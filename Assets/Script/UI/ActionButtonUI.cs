@@ -20,10 +20,12 @@ public class ActionButtonUI : MonoBehaviour
         {
             UnitActionSystem.Instance.SetSelectedAction(action);
         });
+
     }
     public void UppdateSelectedVisual()
     {
         BaseAction action = UnitActionSystem.Instance.GetSelectedAction();  
         selectedGameObj.SetActive(action==baseAcion);
+
     }
 }

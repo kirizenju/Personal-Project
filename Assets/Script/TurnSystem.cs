@@ -10,7 +10,7 @@ public class TurnSystem : MonoBehaviour
     public event EventHandler OnTurnChanged;
 
     private int turnNumber;
-    private bool isPlayerTurn;
+    private bool isPlayerTurn=true;
 
 
     public void NextTurn()

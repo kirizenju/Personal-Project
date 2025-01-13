@@ -20,6 +20,7 @@ public class UnitSelectedVisual : MonoBehaviour
     {
        UpdateVisual();
     }
+    private void OnDestroy() { UnitActionSystem.Instance.OnSelectedUnitChange -= UnitActionSystem_OnSelectedUnitChange; }
     private void UpdateVisual()
     {
         if (UnitActionSystem.Instance.GetSelectUnit() == unit)

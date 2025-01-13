@@ -13,6 +13,7 @@ public class SpinAction : BaseAction
     {
         if (!isActive)
         {
+            
             return;
         }
         float spinAmmount = 360 * Time.deltaTime;
@@ -21,16 +22,15 @@ public class SpinAction : BaseAction
         totalSpinAmount += spinAmmount;
         if (totalSpinAmount >= 360f)
         {
-            isActive = false;
-            onActionComplete();
+            ActionComplete();
         }    
     }
    
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
-        this.onActionComplete = onActionComplete;
-        isActive = true;
+       
         totalSpinAmount = 0f;
+        ActionStart(onActionComplete);
     }
 
     public override string GetActionName()
@@ -45,5 +45,14 @@ public class SpinAction : BaseAction
     public override int GetAPCost()
     {
         return 2;
+    }
+
+    public override EnemyAIAction GetEnemyAction(GridPosition gridPosition)
+    {
+        return new EnemyAIAction
+        {
+            gridPosition = gridPosition,
+            actionValue = 0,
+        };
     }
 }  

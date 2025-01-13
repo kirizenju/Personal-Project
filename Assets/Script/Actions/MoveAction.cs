@@ -13,7 +13,10 @@ public class MoveAction : BaseAction
     private float moveSpeed = 4f;
     private float stoppingDistance = .1f;
     private float rotateSpeed = 10f;
-    
+
+
+    public event EventHandler OnStartMoving;
+    public event EventHandler OnStopMoving;
     protected override void Awake()
     {
         base.Awake();
@@ -34,25 +37,23 @@ public class MoveAction : BaseAction
         Vector3 moveDirection = (targetPosition - transform.position).normalized;
         if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance)
         {
-            
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-           
-            unitAnimator.SetBool("IsWalking", true);
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);         
         }
         else
         {
-            unitAnimator.SetBool("IsWalking", false);
-            isActive = false;
-            onActionComplete();
+            OnStopMoving?.Invoke(this, EventArgs.Empty);
+            ActionComplete();
         }
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveDirection), Time.deltaTime * rotateSpeed);
+
     }
     //Get vector3
     public override void TakeAction(GridPosition gridPosition,Action onActionComplete)
     {
+        
         this.targetPosition=LevelGrid.Instance.GetWorldPosition(gridPosition);
-        isActive = true;
-        this.onActionComplete = onActionComplete;
+        OnStartMoving?.Invoke(this,EventArgs.Empty);
+        ActionStart(onActionComplete);
     }
    
     public override List<GridPosition> GetValidActionGridPositionList()
@@ -69,7 +70,7 @@ public class MoveAction : BaseAction
                 {                 
                    continue;
                 }
-                if (unitGridPosition == testGridPosition)
+                if (unitGridPosition == testGridPosition)   
                 {
                    
                     //same gridPosition
@@ -91,5 +92,14 @@ public class MoveAction : BaseAction
     {
         return "Move";
     }
-
+    public override EnemyAIAction GetEnemyAction(GridPosition gridPosition)
+    {
+        int targetCount=unit.GetShootAction().GetTargetCountAtPosition(gridPosition);
+        return new EnemyAIAction
+        {
+            gridPosition = gridPosition,
+            actionValue = targetCount * 10,
+        };
+    }
+   
 }

@@ -68,7 +68,9 @@ public class UnitActionSystem : MonoBehaviour
         isBusy = true; 
         OnBusyChanged?.Invoke(this,isBusy);
     }
-    private void ClearBusy() {  isBusy = false;
+    private void ClearBusy() {
+        Debug.Log("ClearBusy called, isBusy is now false.");
+        isBusy = false;
         OnBusyChanged?.Invoke(this, isBusy);
     }
     private bool TryHandleSelection()
